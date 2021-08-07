@@ -1,71 +1,6 @@
 /*
-   Copyright (c) [Year] [name of copyright holder]
-   [Software Name] is licensed under Mulan PSL v2.
-   You can use this software according to the terms and conditions of the Mulan PSL v2. 
-   You may obtain a copy of Mulan PSL v2 at:
-            http://license.coscl.org.cn/MulanPSL2 
-   THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.  
-   See the Mulan PSL v2 for more details.  
-
-
-                     Mulan Permissive Software License£¨Version 2
-
-   Mulan Permissive Software License£¨Version 2 (Mulan PSL v2)
-   January 2020 http://license.coscl.org.cn/MulanPSL2
-
-   Your reproduction, use, modification and distribution of the Software shall be subject to Mulan PSL v2 (this License) with the following terms and conditions: 
-   
-   0. Definition
-   
-      Software means the program and related documents which are licensed under this License and comprise all Contribution(s). 
-   
-      Contribution means the copyrightable work licensed by a particular Contributor under this License.
-   
-      Contributor means the Individual or Legal Entity who licenses its copyrightable work under this License.
-   
-      Legal Entity means the entity making a Contribution and all its Affiliates.
-   
-      Affiliates means entities that control, are controlled by, or are under common control with the acting entity under this License, °Æcontrol°Ø means direct or indirect ownership of at least fifty percent (50%) of the voting power, capital or other securities of controlled or commonly controlled entity.
-
-   1. Grant of Copyright License
-
-      Subject to the terms and conditions of this License, each Contributor hereby grants to you a perpetual, worldwide, royalty-free, non-exclusive, irrevocable copyright license to reproduce, use, modify, or distribute its Contribution, with modification or not.
-
-   2. Grant of Patent License 
-
-      Subject to the terms and conditions of this License, each Contributor hereby grants to you a perpetual, worldwide, royalty-free, non-exclusive, irrevocable (except for revocation under this Section) patent license to make, have made, use, offer for sale, sell, import or otherwise transfer its Contribution, where such patent license is only limited to the patent claims owned or controlled by such Contributor now or in future which will be necessarily infringed by its Contribution alone, or by combination of the Contribution with the Software to which the Contribution was contributed. The patent license shall not apply to any modification of the Contribution, and any other combination which includes the Contribution. If you or your Affiliates directly or indirectly institute patent litigation (including a cross claim or counterclaim in a litigation) or other patent enforcement activities against any individual or entity by alleging that the Software or any Contribution in it infringes patents, then any patent license granted to you under this License for the Software shall terminate as of the date such litigation or activity is filed or taken.
-
-   3. No Trademark License
-
-      No trademark license is granted to use the trade names, trademarks, service marks, or product names of Contributor, except as required to fulfill notice requirements in Section 4.
-
-   4. Distribution Restriction
-
-      You may distribute the Software in any medium with or without modification, whether in source or executable forms, provided that you provide recipients with a copy of this License and retain copyright, patent, trademark and disclaimer statements in the Software.
-
-   5. Disclaimer of Warranty and Limitation of Liability
-
-      THE SOFTWARE AND CONTRIBUTION IN IT ARE PROVIDED WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. IN NO EVENT SHALL ANY CONTRIBUTOR OR COPYRIGHT HOLDER BE LIABLE TO YOU FOR ANY DAMAGES, INCLUDING, BUT NOT LIMITED TO ANY DIRECT, OR INDIRECT, SPECIAL OR CONSEQUENTIAL DAMAGES ARISING FROM YOUR USE OR INABILITY TO USE THE SOFTWARE OR THE CONTRIBUTION IN IT, NO MATTER HOW IT°ØS CAUSED OR BASED ON WHICH LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-
-   6. Language
-
-      THIS LICENSE IS WRITTEN IN BOTH CHINESE AND ENGLISH, AND THE CHINESE VERSION AND ENGLISH VERSION SHALL HAVE THE SAME LEGAL EFFECT. IN THE CASE OF DIVERGENCE BETWEEN THE CHINESE AND ENGLISH VERSIONS, THE CHINESE VERSION SHALL PREVAIL.
-
-   END OF THE TERMS AND CONDITIONS
-
-   How to Apply the Mulan Permissive Software License£¨Version 2 (Mulan PSL v2) to Your Software
-
-      To apply the Mulan PSL v2 to your work, for easy identification by recipients, you are suggested to complete following three steps:
-
-      i Fill in the blanks in following statement, including insert your software name, the year of the first publication of your software, and your name identified as the copyright owner; 
-
-      ii Create a file named °∞LICENSE°± which contains the whole context of this License in the first directory of your software package;
-
-      iii Attach the statement to the appropriate annotated syntax at the beginning of each source file.
-
-
-   Copyright (c) [Year] [name of copyright holder]
-   [Software Name] is licensed under Mulan PSL v2.
+   Copyright (c) 2021 2345Explorer
+   Snake is licensed under Mulan PSL v2.
    You can use this software according to the terms and conditions of the Mulan PSL v2. 
    You may obtain a copy of Mulan PSL v2 at:
                http://license.coscl.org.cn/MulanPSL2 
@@ -81,7 +16,7 @@
 #include <time.h>
 #include "Snake.h"
 using namespace std;
-//∂®“Â.
+//ÂÆö‰πâ.
 void InitFruit() throw() ;
 void InitHead(short ms) throw() ;
 void Print_Map() throw() ;
@@ -102,11 +37,11 @@ int SnakeLength=0;
 const short dx[4]= {-1,1,0,0},dy[4]= {0,0,-1,1};
 const short rdx[4]= {1,-1,0,0},rdy[4]= {0,0,1,-1};
 bool Pausing=false,SeeMenu=false;
-int d;		//0«∞1∫Û2◊Û3”“
+int d;		//0Ââç1Âêé2Â∑¶3Âè≥
 
 int main(int argc,char* argv[],char** env) {
 	srand((unsigned)time(NULL));
-	system("title Ã∞≥‘…ﬂ");
+	system("title Ë¥™ÂêÉËõá");
 	HideCursor();
 
 	while(1) {
@@ -125,7 +60,7 @@ int main(int argc,char* argv[],char** env) {
 	}
 }
 
-void InitFruit() throw() {		//≥ı ºªØÀÆπ˚.
+void InitFruit() throw() {		//ÂàùÂßãÂåñÊ∞¥Êûú.
 	HideCursor();
 	do {
 		fruit.x=rand()%HIGHT,fruit.y=rand()%WIDTH;
@@ -136,7 +71,7 @@ void InitFruit() throw() {		//≥ı ºªØÀÆπ˚.
 			}
 	} while(fruit.x==0||fruit.y==0||fruit.x==HIGHT-1||fruit.y==WIDTH-1||(fruit.x==head.x&&fruit.y==head.y));
 }
-void InitHead(short ms) throw() {		//≥ı ºªØ…ﬂÕ∑.
+void InitHead(short ms) throw() {		//ÂàùÂßãÂåñËõáÂ§¥.
 	HideCursor();
 	int a[4]= {2,4,6,8};
 	int x;
@@ -149,7 +84,7 @@ void InitHead(short ms) throw() {		//≥ı ºªØ…ﬂÕ∑.
 	} while(head.x<=a[x]||head.y<=a[x]||head.x>=HIGHT-a[x]||head.y>=WIDTH-a[x]);
 }
 
-void Print_Map() throw() {		// ‰≥ˆµÿÕº.
+void Print_Map() throw() {		//ËæìÂá∫Âú∞Âõæ.
 	HideCursor();
 	bool mp[HIGHT+2][WIDTH+2];
 	memset(mp,0,sizeof(mp));
@@ -185,12 +120,12 @@ void Print_Map() throw() {		// ‰≥ˆµÿÕº.
 void Print_Tips() throw() {
 	HideCursor();
 	gotoXY(WIDTH+2,10);
-	cout<<"µ±«∞∑÷ ˝:"<<SnakeLength+1<<"         ";
+	cout<<"ÂΩìÂâçÂàÜÊï∞:"<<SnakeLength+1<<"         ";
 	gotoXY(WIDTH+2,12);
-	cout<<"”√∑ΩœÚº¸≤ŸøÿÃ∞≥‘…ﬂ,ESC‘›Õ£           ";
+	cout<<"Áî®ÊñπÂêëÈîÆÊìçÊéßË¥™ÂêÉËõá,ESCÊöÇÂÅú           ";
 }
 
-bool Move() throw() {		// «∑Òø…“‘“∆∂Ø,»Áπ˚ø…“‘æÕ“∆∂Ø.
+bool Move() throw() {		//ÊòØÂê¶ÂèØ‰ª•ÁßªÂä®,Â¶ÇÊûúÂèØ‰ª•Â∞±ÁßªÂä®.
 	HideCursor();
 	int thx=head.x+dx[d],thy=head.y+dy[d];
 	if(DebugModeSetting.HBT)
@@ -207,7 +142,7 @@ bool Move() throw() {		// «∑Òø…“‘“∆∂Ø,»Áπ˚ø…“‘æÕ“∆∂Ø.
 	return true;
 }
 
-void EatFruit() throw() {		//≥‘µΩÀÆπ˚.
+void EatFruit() throw() {		//ÂêÉÂà∞Ê∞¥Êûú.
 	HideCursor();
 	tail[SnakeLength].x=tail[SnakeLength-1].x+rdx[d];
 	tail[SnakeLength].y=tail[SnakeLength-1].y+rdy[d];
@@ -215,7 +150,7 @@ void EatFruit() throw() {		//≥‘µΩÀÆπ˚.
 	InitFruit();
 }
 
-bool GetInput() throw() {		//ªÒ»°º¸≈Ã ‰»Î.
+bool GetInput() throw() {		//Ëé∑ÂèñÈîÆÁõòËæìÂÖ•.
 	HideCursor();
 	char t=getch();
 	if(t!=0&&t!=224&&t!=-32) {
@@ -223,7 +158,7 @@ bool GetInput() throw() {		//ªÒ»°º¸≈Ã ‰»Î.
 			Pausing=true;
 		return true;
 	}
-	char c=getch();		//µ⁄∂˛¥Œ∂¡»°,Œ™ ≤√¥Õ¯…œ”–.
+	char c=getch();		//Á¨¨‰∫åÊ¨°ËØªÂèñ,‰∏∫‰ªÄ‰πàÁΩë‰∏äÊúâ.
 	if(c==UP) {
 		if(d!=1) {
 			d=0;
@@ -252,7 +187,7 @@ bool GetInput() throw() {		//ªÒ»°º¸≈Ã ‰»Î.
 	return true;
 }
 
-void StartGame(short ms) throw() {		//ø™ º”Œœ∑.
+void StartGame(short ms) throw() {		//ÂºÄÂßãÊ∏∏Êàè.
 	HideCursor();
 	gotoXY(WIDTH,0);
 	cout<<"       ";
@@ -269,15 +204,15 @@ void StartGame(short ms) throw() {		//ø™ º”Œœ∑.
 					system("cls");
 					Print_Map();
 					gotoXY(WIDTH+2,10);
-					cout<<"∑µªÿ”Œœ∑                 ";
+					cout<<"ËøîÂõûÊ∏∏Êàè                 ";
 					gotoXY(WIDTH+2,12);
-					cout<<"ÕÀ≥ˆ÷¡÷˜≤Àµ•             ";
+					cout<<"ÈÄÄÂá∫Ëá≥‰∏ªËèúÂçï             ";
 					gotoXY(WIDTH+2,14);
-					cout<<"ÕÀ≥ˆ”Œœ∑                 ";
+					cout<<"ÈÄÄÂá∫Ê∏∏Êàè                 ";
 					if(IsWin7())	Print_Fame(a[i][0],a[i][1],a[i][2]+1);
 					else	Print_Fame(a[i][0],a[i][1],a[i][2]);
 					gotoXY(WIDTH+2,16);
-					cout<<"…œ°¢œ¬∑ΩœÚº¸«–ªª, ªÿ≥µ—°‘Ò";
+					cout<<"‰∏ä„ÄÅ‰∏ãÊñπÂêëÈîÆÂàáÊç¢, ÂõûËΩ¶ÈÄâÊã©";
 				} else {
 					flag=false;
 				}
@@ -293,7 +228,7 @@ void StartGame(short ms) throw() {		//ø™ º”Œœ∑.
 					} else {
 						flag=true;
 					}
-				} else if(t==13){	//ªÿ≥µ.
+				} else if(t==13){	//ÂõûËΩ¶.
 					if(i==0){
 						break;
 					}else if(i==1){
@@ -337,11 +272,11 @@ short _Start() throw() {
 	while(1){
 		if(!flag){
 			system("cls");
-			cout<<"**********Ã∞≥‘…ﬂ**********\n";
-			cout<<"«Î—°‘ÒÀŸ∂»\n\n";
+			cout<<"**********Ë¥™ÂêÉËõá**********\n";
+			cout<<"ËØ∑ÈÄâÊã©ÈÄüÂ∫¶\n\n";
 			cout<<' '<<SPEED_STR[1]<<"  "<<SPEED_STR[2]<<"  "
-				<<SPEED_STR[3]<<"  "<<SPEED_STR[4]<<" ÀÊª˙\n\n";
-			cout<<"◊Û°¢”“∑ΩœÚº¸«–ªª,ªÿ≥µ—°‘Ò\n";
+				<<SPEED_STR[3]<<"  "<<SPEED_STR[4]<<" ÈöèÊú∫\n\n";
+			cout<<"Â∑¶„ÄÅÂè≥ÊñπÂêëÈîÆÂàáÊç¢,ÂõûËΩ¶ÈÄâÊã©\n";
 			if(IsWin7())	Print_Fame(2,a[f][0],a[f][1]+1);
 			else	Print_Fame(2,a[f][0],a[f][1]);
 		} else {
@@ -351,7 +286,7 @@ short _Start() throw() {
 		if(c1!=0&&c1!=224&&c1!=-32){
 			if(c1==13){
 				if(f==4){
-					speed=rand()%4+1;	//…¢≤Ω:1 ––◊ﬂ:2 ±º≈‹:3 ∑ËøÒ:4 
+					speed=rand()%4+1;	//Êï£Ê≠•:1 Ë°åËµ∞:2 Â•îË∑ë:3 ÁñØÁãÇ:4 
 				} else {
 					speed=f+1;
 				}
@@ -374,8 +309,8 @@ short _Start() throw() {
 	}
 	system("cls");
 	if(f==4)
-		cout<<"“——°ÀŸ∂»:"<<SPEED_STR[speed]<<endl;
-	cout<<"º”‘ÿ÷–...\n";
+		cout<<"Â∑≤ÈÄâÈÄüÂ∫¶:"<<SPEED_STR[speed]<<endl;
+	cout<<"Âä†ËΩΩ‰∏≠...\n";
 	Sleep(1050);
 	StartGame(SPEED_MS[speed]);
 	return speed;
@@ -388,40 +323,40 @@ void DebugMode() throw() {
 	while(1){
 		if(!flag){
 			system("cls");
-			cout<<"********Debug…Ë÷√********\n\n";
-			cout<<"…ﬂÕ∑◊≤…ﬂ…ÌÀ¿Õˆ:";
-			if(DebugModeSetting.HBT)	cout<<" «";
-			else	cout<<"∑Ò";
-			cout<<"    ∏¸∏ƒ  \n\n";
-			cout<<"µ±«∞≥ı º≥§∂»Œ™:"<<DebugModeSetting.InitTailLength+1;
+			cout<<"********DebugËÆæÁΩÆ********\n\n";
+			cout<<"ËõáÂ§¥ÊíûËõáË∫´Ê≠ª‰∫°:";
+			if(DebugModeSetting.HBT)	cout<<"ÊòØ";
+			else	cout<<"Âê¶";
+			cout<<"    Êõ¥Êîπ  \n\n";
+			cout<<"ÂΩìÂâçÂàùÂßãÈïøÂ∫¶‰∏∫:"<<DebugModeSetting.InitTailLength+1;
 			gotoXY(21,4);
-			cout<<"∏¸∏ƒ≥ı º≥§∂»  \n\n";
+			cout<<"Êõ¥ÊîπÂàùÂßãÈïøÂ∫¶  \n\n";
 			gotoXY(21,6);
-			cout<<"ÕÀ≥ˆ\n\n";
-			cout<<"…œ°¢œ¬∑ΩœÚº¸—°‘Ò, ªÿ≥µ»∑»œ \n";
+			cout<<"ÈÄÄÂá∫\n\n";
+			cout<<"‰∏ä„ÄÅ‰∏ãÊñπÂêëÈîÆÈÄâÊã©, ÂõûËΩ¶Á°ÆËÆ§ \n";
 		} else flag=false;
 		if(IsWin7)	Print_Fame(a[f][0],a[f][1],a[f][2]+1);
 		else	Print_Fame(a[f][0],a[f][1],a[f][2]);
 		char c1=getch();
 		if(c1!=0&&c1!=224&&c1!=-32) {
-			if(c1==13){		//ªÿ≥µ.
+			if(c1==13){		//ÂõûËΩ¶.
 				system("cls");
 				if(f==0){
 					DebugModeSetting.HBT=!DebugModeSetting.HBT;
-					cout<<"…ﬂÕ∑◊≤…ﬂ…ÌÀ¿Õˆ“—∏¸∏ƒŒ™";
-					if(DebugModeSetting.HBT==true)	cout<<" «\n";
-					else	cout<<"∑Ò\n";
-					cout<<"º¥Ω´ªÿµΩDebug…Ë÷√ΩÁ√Ê...\n";
+					cout<<"ËõáÂ§¥ÊíûËõáË∫´Ê≠ª‰∫°Â∑≤Êõ¥Êîπ‰∏∫";
+					if(DebugModeSetting.HBT==true)	cout<<"ÊòØ\n";
+					else	cout<<"Âê¶\n";
+					cout<<"Âç≥Â∞ÜÂõûÂà∞DebugËÆæÁΩÆÁïåÈù¢...\n";
 					Sleep(700);
 				} else if(f==1){
-					cout<<"«Î ‰»Î“™∏¸∏ƒµƒ≥ı º≥§∂»:";
+					cout<<"ËØ∑ËæìÂÖ•Ë¶ÅÊõ¥ÊîπÁöÑÂàùÂßãÈïøÂ∫¶:";
 					long long t;
 					cin>>t;
 					t--;
 					if(t<0)	t=-t;
 					t%=MaxSnakeTailLength;
 					DebugModeSetting.InitTailLength=t;
-					cout<<"\n∏¸∏ƒ≥…π¶!º¥Ω´ªÿµΩDebug…Ë÷√ΩÁ√Ê...";
+					cout<<"\nÊõ¥ÊîπÊàêÂäü!Âç≥Â∞ÜÂõûÂà∞DebugËÆæÁΩÆÁïåÈù¢...";
 					Sleep(700);
 				} else{
 					break;
@@ -457,56 +392,56 @@ void Settings() throw() {
 	while(1){
 		if(!flag){
 			system("cls");
-			cout<<"**********…Ë÷√***********\n\n";
-			cout<<" …ﬂÕ∑:"<<HeadC<<"    ÷ÿ÷√    ∏¸∏ƒ \n\n";
-			cout<<" …ﬂ…Ì:"<<TailC<<"    ÷ÿ÷√    ∏¸∏ƒ \n\n";
-			cout<<"  ≥ŒÔ:"<<FruitC<<"    ÷ÿ÷√    ∏¸∏ƒ \n\n";
-			cout<<"        Debugƒ£ Ω  ÕÀ≥ˆ…Ë÷√ \n\n";
-			cout<<"…œœ¬◊Û”“∑ΩœÚº¸—°‘Ò, ªÿ≥µ»∑»œ\n";
+			cout<<"**********ËÆæÁΩÆ***********\n\n";
+			cout<<" ËõáÂ§¥:"<<HeadC<<"    ÈáçÁΩÆ    Êõ¥Êîπ \n\n";
+			cout<<" ËõáË∫´:"<<TailC<<"    ÈáçÁΩÆ    Êõ¥Êîπ \n\n";
+			cout<<" È£üÁâ©:"<<FruitC<<"    ÈáçÁΩÆ    Êõ¥Êîπ \n\n";
+			cout<<"        DebugÊ®°Âºè  ÈÄÄÂá∫ËÆæÁΩÆ \n\n";
+			cout<<"‰∏ä‰∏ãÂ∑¶Âè≥ÊñπÂêëÈîÆÈÄâÊã©, ÂõûËΩ¶Á°ÆËÆ§\n";
 		} else	flag=false;
 		if(IsWin7())	Print_Fame(a[fx][fy][0],a[fx][fy][1],a[fx][fy][2]+1);
 		else	Print_Fame(a[fx][fy][0],a[fx][fy][1],a[fx][fy][2]);
 		char c1=getch();
 		if(c1!=0&&c1!=224&&c1!=-32) {
-			if(c1==13){		//ªÿ≥µ.
+			if(c1==13){		//ÂõûËΩ¶.
 				if(fy==0&&fx<3){
 					system("cls");
 					if(fx==0){
 						HeadC='#';
-						cout<<"…ﬂÕ∑∑˚∫≈“—÷ÿ÷√Œ™#\n";
-						cout<<"º¥Ω´ªÿµΩ…Ë÷√ΩÁ√Ê...";
+						cout<<"ËõáÂ§¥Á¨¶Âè∑Â∑≤ÈáçÁΩÆ‰∏∫#\n";
+						cout<<"Âç≥Â∞ÜÂõûÂà∞ËÆæÁΩÆÁïåÈù¢...";
 						Sleep(700);
 					}
 					else if(fx==1){
 						TailC='*';
-						cout<<"…ﬂ…Ì∑˚∫≈“—÷ÿ÷√Œ™*\n";
-						cout<<"º¥Ω´ªÿµΩ…Ë÷√ΩÁ√Ê...";
+						cout<<"ËõáË∫´Á¨¶Âè∑Â∑≤ÈáçÁΩÆ‰∏∫*\n";
+						cout<<"Âç≥Â∞ÜÂõûÂà∞ËÆæÁΩÆÁïåÈù¢...";
 						Sleep(700);
 					}
 					else {
 						FruitC='0';
-						cout<<" ≥ŒÔ∑˚∫≈“—÷ÿ÷√Œ™0\n";
-						cout<<"º¥Ω´ªÿµΩ…Ë÷√ΩÁ√Ê...";
+						cout<<"È£üÁâ©Á¨¶Âè∑Â∑≤ÈáçÁΩÆ‰∏∫0\n";
+						cout<<"Âç≥Â∞ÜÂõûÂà∞ËÆæÁΩÆÁïåÈù¢...";
 						Sleep(700);
 					}
 				} else if(fy==1){
 					system("cls");
 					if(fx==0){
-						cout<<"«Î ‰»Î“™∏¸∏ƒµƒ…ﬂÕ∑∑˚∫≈:";
+						cout<<"ËØ∑ËæìÂÖ•Ë¶ÅÊõ¥ÊîπÁöÑËõáÂ§¥Á¨¶Âè∑:";
 						HeadC=getche();
-						cout<<"\n∏¸∏ƒ≥…π¶!º¥Ω´ªÿµΩ…Ë÷√ΩÁ√Ê...";
+						cout<<"\nÊõ¥ÊîπÊàêÂäü!Âç≥Â∞ÜÂõûÂà∞ËÆæÁΩÆÁïåÈù¢...";
 						Sleep(700);
 					}
 					else if(fx==1){
-						cout<<"«Î ‰»Î“™∏¸∏ƒµƒ…ﬂ…Ì∑˚∫≈:";
+						cout<<"ËØ∑ËæìÂÖ•Ë¶ÅÊõ¥ÊîπÁöÑËõáË∫´Á¨¶Âè∑:";
 						TailC=getche();
-						cout<<"\n∏¸∏ƒ≥…π¶!º¥Ω´ªÿµΩ…Ë÷√ΩÁ√Ê...";
+						cout<<"\nÊõ¥ÊîπÊàêÂäü!Âç≥Â∞ÜÂõûÂà∞ËÆæÁΩÆÁïåÈù¢...";
 						Sleep(700);
 					}
 					else if(fx==2){
-						cout<<"«Î ‰»Î“™∏¸∏ƒµƒ ≥ŒÔ∑˚∫≈:";
+						cout<<"ËØ∑ËæìÂÖ•Ë¶ÅÊõ¥ÊîπÁöÑÈ£üÁâ©Á¨¶Âè∑:";
 						FruitC=getche();
-						cout<<"\n∏¸∏ƒ≥…π¶!º¥Ω´ªÿµΩ…Ë÷√ΩÁ√Ê...";
+						cout<<"\nÊõ¥ÊîπÊàêÂäü!Âç≥Â∞ÜÂõûÂà∞ËÆæÁΩÆÁïåÈù¢...";
 						Sleep(700);
 					}
 					else if(fx==3)	break;
@@ -541,13 +476,13 @@ void Settings() throw() {
 void About() throw() {
 	HideCursor();
 	system("cls");
-	cout<<"Ã∞≥‘…ﬂ"<<VERSION<<" by 2345Explorer\n";
+	cout<<"Ë¥™ÂêÉËõá"<<VERSION<<" by 2345Explorer\n";
 	Sleep(100);
-	cout<<"∏¸–¬ ±º‰:"<<TIME<<endl;
+	cout<<"Êõ¥Êñ∞Êó∂Èó¥:"<<TIME<<endl;
 	Sleep(100);
 	system("pause");
 }
-short StartMenu() throw() {		//≥ı º≤Àµ•.
+short StartMenu() throw() {		//ÂàùÂßãËèúÂçï.
 	HideCursor();
 	int f=0;
 	bool flag=false;
@@ -555,17 +490,17 @@ short StartMenu() throw() {		//≥ı º≤Àµ•.
 	while(1) {
 		if(!flag){
 			system("cls");
-			cout<<"**********Ã∞≥‘…ﬂ**********\n\n";
-			cout<<" ø™ º     …Ë÷√     πÿ”⁄     ÕÀ≥ˆ”Œœ∑  \n";
+			cout<<"**********Ë¥™ÂêÉËõá**********\n\n";
+			cout<<" ÂºÄÂßã     ËÆæÁΩÆ     ÂÖ≥‰∫é     ÈÄÄÂá∫Ê∏∏Êàè  \n";
 		}
 		else	flag=false;
 		if(IsWin7())	Print_Fame(1,a[f][0],a[f][1]+1);
 		else	Print_Fame(1,a[f][0],a[f][1]);
 		gotoXY(0,4);
-		cout<<"◊Û°¢”“∑ΩœÚº¸«–ªª,ªÿ≥µ—°‘Ò\n";
+		cout<<"Â∑¶„ÄÅÂè≥ÊñπÂêëÈîÆÂàáÊç¢,ÂõûËΩ¶ÈÄâÊã©\n";
 		char c1=getch();
 		if(c1!=0&&c1!=224&&c1!=-32) {
-			if(c1==13) {		//ªÿ≥µ.
+			if(c1==13) {		//ÂõûËΩ¶.
 				if(f==1)
 					Settings();
 				else if(f==2)
@@ -594,17 +529,17 @@ short StartMenu() throw() {		//≥ı º≤Àµ•.
 	}
 	return _Start();
 }
-bool EndGame(short x) throw() {		//”Œœ∑Ω· ¯.
+bool EndGame(short x) throw() {		//Ê∏∏ÊàèÁªìÊùü.
 	HideCursor();
 	gotoXY(0,HIGHT+1);
-	cout<<"”Œœ∑Ω· ¯!\n";
+	cout<<"Ê∏∏ÊàèÁªìÊùü!\n";
 	system("pause");
 	system("cls");
-	cout<<"”Œœ∑Ω· ¯!\n";
-	cout<<"∑÷ ˝:"<<SnakeLength+1<<endl;
-	cout<<"ÀŸ∂»:"<<SPEED_STR[x]<<endl;
+	cout<<"Ê∏∏ÊàèÁªìÊùü!\n";
+	cout<<"ÂàÜÊï∞:"<<SnakeLength+1<<endl;
+	cout<<"ÈÄüÂ∫¶:"<<SPEED_STR[x]<<endl;
 	Sleep(1000);
-	cout<<"Y:‘Ÿ¿¥“ª¥Œ N:Ω· ¯\n";
+	cout<<"Y:ÂÜçÊù•‰∏ÄÊ¨° N:ÁªìÊùü\n";
 	char c=32;
 	while(c!='Y'&&c!='y'&&c!='N'&&c!='n'){
 		c=getch();
