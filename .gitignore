@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+/1.4.4/Snake/Debug/Snake.tlog
+/1.4.4/Snake/Debug/vc143.pdb
+/1.4.4/Snake/Debug/vc143.idb
+/CppProperties.json

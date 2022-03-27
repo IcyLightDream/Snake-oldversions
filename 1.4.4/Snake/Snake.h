@@ -69,4 +69,4 @@ struct TestSettingStruct {
 const short SPEED_MS[5]={0,WALK,GO,RUN,FAST};		//速度对应的值  
 const string SPEED_STR[5]={"","散步","行走","奔跑","疯狂"};	//必须是两个字
 
-const string VERSION="1.4.3",TIME="2022.1.23";
+const string VERSION="1.4.4",TIME="2022.1.26";
