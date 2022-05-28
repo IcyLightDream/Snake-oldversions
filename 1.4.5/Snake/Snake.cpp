@@ -1,9 +1,9 @@
 /*
-   Copyright (c) 2021 2345Explorer
+   Copyright (c) 2022 2345Explorer
    Snake is licensed under Mulan PSL v2.
    You can use this software according to the terms and conditions of the Mulan PSL v2. 
    You may obtain a copy of Mulan PSL v2 at:
-               http://license.coscl.org.cn/MulanPSL2 
+			   http://license.coscl.org.cn/MulanPSL2 
    THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.  
    See the Mulan PSL v2 for more details.  
 */
@@ -17,22 +17,24 @@
 #include "Snake.h"
 using namespace std;
 //定义.
-void InitFruit() throw() ;
-void InitHead(short ms) throw() ;
-void Print_Map() throw() ;
-void Print_Tips() throw() ;
-bool Move() throw() ;
-void EatFruit() throw() ;
-bool GetInput() throw() ;
-void StartGame(short ms) throw() ;
-short StartMenu() throw() ;
-void DebugMode() throw() ;
-bool EndGame(short x) throw() ;
-short _Start() throw() ;
-void Settings() throw() ;
-void About() throw() ;
-pos head,tail[MaxSnakeTailLength],fruit;
-DebugModeSettings DebugModeSetting=(DebugModeSettings){true,0};
+void initFruit();
+void initHead(short ms);
+void printMap();
+void printTips();
+bool move();
+void eatFruit();
+bool getInput();
+void startGame(short ms);
+short startMenu();
+void debugSettings();
+void testSettings();
+bool endGame(short x);
+short startGameMenu();
+void settings();
+void about();
+Pos head,tail[maxSnakeTailLength],fruit;
+DebugModeSettingStruct DebugModeSetting;
+TestSettingStruct TestSetting;
 int SnakeLength=0;
 const short dx[4]= {-1,1,0,0},dy[4]= {0,0,-1,1};
 const short rdx[4]= {1,-1,0,0},rdy[4]= {0,0,1,-1};
@@ -42,17 +44,19 @@ int d;		//0前1后2左3右
 int main(int argc,char* argv[],char** env) {
 	srand((unsigned)time(NULL));
 	system("title 贪吃蛇");
-	HideCursor();
+	hideCursor();
 
+	DebugModeSetting.HBT = true;
+	DebugModeSetting.InitTailLength = 0;
 	while(1) {
 		SnakeLength=0;
 		system("cls");
-		short t=StartMenu();
+		short t=startMenu();
 		if(SeeMenu){
 			SeeMenu=false;
 			continue;
 		}
-		if(!EndGame(t)) {
+		if(!endGame(t)) {
 			system("cls");
 			system("pause");
 			return 0;
@@ -60,8 +64,8 @@ int main(int argc,char* argv[],char** env) {
 	}
 }
 
-void InitFruit() throw() {		//初始化水果.
-	HideCursor();
+void initFruit(){		//初始化水果.
+	hideCursor();
 	do {
 		fruit.x=rand()%HIGHT,fruit.y=rand()%WIDTH;
 		for(int i=0;i<SnakeLength;i++)
@@ -71,10 +75,10 @@ void InitFruit() throw() {		//初始化水果.
 			}
 	} while(fruit.x==0||fruit.y==0||fruit.x==HIGHT-1||fruit.y==WIDTH-1||(fruit.x==head.x&&fruit.y==head.y));
 }
-void InitHead(short ms) throw() {		//初始化蛇头.
-	HideCursor();
+void initHead(short ms){		//初始化蛇头.
+	hideCursor();
 	int a[4]= {2,4,6,8};
-	int x;
+	int x=0;
 	if(ms==SPEED_MS[1])	x=0;
 	else if(ms==SPEED_MS[2])	x=1;
 	else if(ms==SPEED_MS[3])	x=2;
@@ -84,8 +88,8 @@ void InitHead(short ms) throw() {		//初始化蛇头.
 	} while(head.x<=a[x]||head.y<=a[x]||head.x>=HIGHT-a[x]||head.y>=WIDTH-a[x]);
 }
 
-void Print_Map() throw() {		//输出地图.
-	HideCursor();
+void printMap(){		//输出地图.
+	hideCursor();
 	bool mp[HIGHT+2][WIDTH+2];
 	memset(mp,0,sizeof(mp));
 	mp[head.x][head.y]=1;
@@ -117,16 +121,16 @@ void Print_Map() throw() {		//输出地图.
 		}
 	}
 }
-void Print_Tips() throw() {
-	HideCursor();
+void printTips(){
+	hideCursor();
 	gotoXY(WIDTH+2,10);
 	cout<<"当前分数:"<<SnakeLength+1<<"         ";
 	gotoXY(WIDTH+2,12);
 	cout<<"用方向键操控贪吃蛇,ESC暂停           ";
 }
 
-bool Move() throw() {		//是否可以移动,如果可以就移动.
-	HideCursor();
+bool move(){		//是否可以移动,如果可以就移动.
+	hideCursor();
 	int thx=head.x+dx[d],thy=head.y+dy[d];
 	if(DebugModeSetting.HBT)
 		for(int i=0; i<SnakeLength; i++)
@@ -142,59 +146,59 @@ bool Move() throw() {		//是否可以移动,如果可以就移动.
 	return true;
 }
 
-void EatFruit() throw() {		//吃到水果.
-	HideCursor();
+void eatFruit(){		//吃到水果.
+	hideCursor();
 	tail[SnakeLength].x=tail[SnakeLength-1].x+rdx[d];
 	tail[SnakeLength].y=tail[SnakeLength-1].y+rdy[d];
 	SnakeLength++;
-	InitFruit();
+	initFruit();
 }
 
-bool GetInput() throw() {		//获取键盘输入.
-	HideCursor();
-	char t=getch();
+bool getInput(){		//获取键盘输入.
+	hideCursor();
+	char t=_getch();
 	if(t!=0&&t!=224&&t!=-32) {
-		if(t==0x1b)
+		if (t == 0x1b) 
 			Pausing=true;
 		return true;
 	}
-	char c=getch();		//第二次读取,为什么网上有.
+	char c=_getch();		//第二次读取,为什么网上有.
 	if(c==UP) {
 		if(d!=1) {
 			d=0;
-			if(!Move())
+			if(!move())
 				return false;
 		}
 	} else if(c==DOWN) {
 		if(d!=0) {
 			d=1;
-			if(!Move())
+			if(!move())
 				return false;
 		}
 	} else if(c==LEFT) {
 		if(d!=3) {
 			d=2;
-			if(!Move())
+			if(!move())
 				return false;
 		}
 	} else if(c==RIGHT) {
 		if(d!=2) {
 			d=3;
-			if(!Move())
+			if(!move())
 				return false;
 		}
 	}
 	return true;
 }
 
-void StartGame(short ms) throw() {		//开始游戏.
-	HideCursor();
+void startGame(short ms){		//开始游戏.
+	hideCursor();
 	gotoXY(WIDTH,0);
 	cout<<"       ";
 	d=rand()%4;
-	InitHead(ms);
-	InitFruit();
-	for(int i=1;i<=DebugModeSetting.InitTailLength;i++)	EatFruit();
+	initHead(ms);
+	initFruit();
+	for(int i=1;i<=DebugModeSetting.InitTailLength;i++)	eatFruit();
 	while(head.x>0&&head.y>0&&head.x<HIGHT-1&&head.y<WIDTH-1) {
 		if(Pausing) {
 			int a[3][3]={9,WIDTH+2,8,11,WIDTH+2,12,13,WIDTH+2,8},i=0;
@@ -202,23 +206,22 @@ void StartGame(short ms) throw() {		//开始游戏.
 			while(1){
 				if(!flag){
 					system("cls");
-					Print_Map();
+					printMap();
 					gotoXY(WIDTH+2,10);
 					cout<<"返回游戏                 ";
 					gotoXY(WIDTH+2,12);
 					cout<<"退出至主菜单             ";
 					gotoXY(WIDTH+2,14);
 					cout<<"退出游戏                 ";
-					if(IsWin7())	Print_Fame(a[i][0],a[i][1],a[i][2]+1);
-					else	Print_Fame(a[i][0],a[i][1],a[i][2]);
+					printFrame(a[i][0],a[i][1],a[i][2]+1);
 					gotoXY(WIDTH+2,16);
 					cout<<"上、下方向键切换, 回车选择";
 				} else {
 					flag=false;
 				}
-				char t=getch();
+				char t=_getch();
 				if(t==0||t==224||t==-32) {
-					char c=getch();
+					char c=_getch();
 					if(c==UP) {
 						if(i>0) i--;
 						else	i=2;
@@ -243,29 +246,29 @@ void StartGame(short ms) throw() {		//开始游戏.
 			}
 			Pausing=false;
 			system("cls");
-			Print_Map();
-			Print_Tips();
+			printMap();
+			printTips();
 		}
 		if(head.x==fruit.x&&head.y==fruit.y) {
-			EatFruit();
+			eatFruit();
 		}
 		if(_kbhit()) {
-			if(!GetInput())
+			if(!getInput())
 				break;
 		} else {
-			if(!Move())
+			if(!move())
 				break;
 		}
 		Sleep(ms);
-		Print_Map();
-		Print_Tips();
+		printMap();
+		printTips();
 	}
-	Print_Map();
-	Print_Tips();
+	printMap();
+	printTips();
 }
 
-short _Start() throw() {
-	HideCursor();
+short startGameMenu(){
+	hideCursor();
 	system("cls");
 	int f=0,speed,flag=false;
 	int a[5][2]={2,2,8,2,14,2,20,2,26,2};
@@ -277,12 +280,11 @@ short _Start() throw() {
 			cout<<' '<<SPEED_STR[1]<<"  "<<SPEED_STR[2]<<"  "
 				<<SPEED_STR[3]<<"  "<<SPEED_STR[4]<<" 随机\n\n";
 			cout<<"左、右方向键切换,回车选择\n";
-			if(IsWin7())	Print_Fame(2,a[f][0],a[f][1]+1);
-			else	Print_Fame(2,a[f][0],a[f][1]);
+			printFrame(2,a[f][0],a[f][1]+1);
 		} else {
 			flag=false;
 		}
-		char c1=getch();
+		char c1=_getch();
 		if(c1!=0&&c1!=224&&c1!=-32){
 			if(c1==13){
 				if(f==4){
@@ -295,7 +297,7 @@ short _Start() throw() {
 				flag=true;
 			}
 		} else {
-			char c2=getch();
+			char c2=_getch();
 			if(c2==LEFT){
 				if(f==0)	f=4;
 				else	f--;
@@ -312,13 +314,72 @@ short _Start() throw() {
 		cout<<"已选速度:"<<SPEED_STR[speed]<<endl;
 	cout<<"加载中...\n";
 	Sleep(1050);
-	StartGame(SPEED_MS[speed]);
+	startGame(SPEED_MS[speed]);
 	return speed;
 }
 
-void DebugMode() throw() {
+void testSettings() {
+	int f = 0;
+	int a[2][3] = { 1,24,2,3,24,13};
+	bool flag = false;
+	while (1) {
+		if (!flag) {
+			system("cls");
+			cout << "********实验性********\n\n";
+			cout << "玩完游戏自动关机:";
+			if (TestSetting.sd)	cout << "是";
+			else	cout << "否";
+			cout << "    更改\n\n";
+			gotoXY(23, 4);
+			cout << "返回到Debug设置\n\n";
+		} else flag = false;
+		printFrame(a[f][0], a[f][1], a[f][2] + 1);
+		char c1 = _getch();
+		if (c1 != 0 && c1 != 224 && c1 != -32) {
+			if (c1 == 13) {		//回车.
+				system("cls");
+				if (f == 0) {
+					if (TestSetting.sd) {
+						TestSetting.sd = false;
+						cout << "玩完游戏自动关机已更改为:否\n";
+						Sleep(700);
+						continue;
+					}
+					cout << "确定嘛?(Y/N)";
+					char c2 = _getche();
+					while (c2 != 'Y' && c2 != 'N'&&c2!='y'&&c2!='n')	c2 = _getch();
+					if (c2 == 'N' || c2 == 'n')	continue;
+					TestSetting.sd = true;
+					cout << "\n危\n";
+					Sleep(700);
+				} else {
+					break;
+				}
+			} else {
+				flag = true;
+				continue;
+			}
+		}
+		else {
+			char c2 = _getch();
+			if (c2 == UP) {
+				if (f == 0)	f = 1;
+				else	f--;
+			}
+			else if (c2 == DOWN) {
+				if (f == 1)	f = 0;
+				else	f++;
+			}
+			else {
+				flag = true;
+				continue;
+			}
+		}
+	}
+}
+void debugSettings(){
 	int f=0;
-	int a[3][3]={1,22,2,3,22,10,5,22,2};
+	int a[4][3]={1,22,2,3,22,10,5,22,4,7,22,2};
 	bool flag=false;
 	while(1){
 		if(!flag){
@@ -331,13 +392,15 @@ void DebugMode() throw() {
 			cout<<"当前初始长度为:"<<DebugModeSetting.InitTailLength+1;
 			gotoXY(21,4);
 			cout<<"更改初始长度  \n\n";
+			cout << "实验性";
 			gotoXY(21,6);
+			cout<<"设置\n\n";
+			gotoXY(21,8);
 			cout<<"退出\n\n";
 			cout<<"上、下方向键选择, 回车确认 \n";
 		} else flag=false;
-		if(IsWin7)	Print_Fame(a[f][0],a[f][1],a[f][2]+1);
-		else	Print_Fame(a[f][0],a[f][1],a[f][2]);
-		char c1=getch();
+		printFrame(a[f][0],a[f][1],a[f][2]+1);
+		char c1=_getch();
 		if(c1!=0&&c1!=224&&c1!=-32) {
 			if(c1==13){		//回车.
 				system("cls");
@@ -354,10 +417,12 @@ void DebugMode() throw() {
 					cin>>t;
 					t--;
 					if(t<0)	t=-t;
-					t%=MaxSnakeTailLength;
+					t%=maxSnakeTailLength;
 					DebugModeSetting.InitTailLength=t;
 					cout<<"\n更改成功!即将回到Debug设置界面...";
 					Sleep(700);
+				} else if (f == 2) {
+					testSettings();
 				} else{
 					break;
 				}
@@ -366,12 +431,12 @@ void DebugMode() throw() {
 				continue;
 			}
 		} else {
-			char c2=getch();
+			char c2=_getch();
 			if(c2==UP){
-				if(f==0)	f=2;
+				if(f==0)	f=3;
 				else	f--;
 			} else if(c2==DOWN){
-				if(f==2)	f=0;
+				if(f==3)	f=0;
 				else	f++;
 			} else {
 				flag=true;
@@ -381,8 +446,8 @@ void DebugMode() throw() {
 	}
 }
 
-void Settings() throw() {
-	HideCursor();
+void settings(){
+	hideCursor();
 	int fx=0,fy=0;
 	int a[4][2][3]={{{1,12,2},{1,20,2}},
 					{{3,12,2},{3,20,2}},
@@ -399,9 +464,8 @@ void Settings() throw() {
 			cout<<"        Debug模式  退出设置 \n\n";
 			cout<<"上下左右方向键选择, 回车确认\n";
 		} else	flag=false;
-		if(IsWin7())	Print_Fame(a[fx][fy][0],a[fx][fy][1],a[fx][fy][2]+1);
-		else	Print_Fame(a[fx][fy][0],a[fx][fy][1],a[fx][fy][2]);
-		char c1=getch();
+		printFrame(a[fx][fy][0],a[fx][fy][1],a[fx][fy][2]+1);
+		char c1=_getch();
 		if(c1!=0&&c1!=224&&c1!=-32) {
 			if(c1==13){		//回车.
 				if(fy==0&&fx<3){
@@ -428,32 +492,32 @@ void Settings() throw() {
 					system("cls");
 					if(fx==0){
 						cout<<"请输入要更改的蛇头符号:";
-						HeadC=getche();
+						HeadC=_getche();
 						cout<<"\n更改成功!即将回到设置界面...";
 						Sleep(700);
 					}
 					else if(fx==1){
 						cout<<"请输入要更改的蛇身符号:";
-						TailC=getche();
+						TailC=_getche();
 						cout<<"\n更改成功!即将回到设置界面...";
 						Sleep(700);
 					}
 					else if(fx==2){
 						cout<<"请输入要更改的食物符号:";
-						FruitC=getche();
+						FruitC=_getche();
 						cout<<"\n更改成功!即将回到设置界面...";
 						Sleep(700);
 					}
 					else if(fx==3)	break;
 				} else if(fx==3&&fy==0){
-					DebugMode();
+					debugSettings();
 				}
 			} else {
 				flag=true;
 				continue;
 			}
 		} else {
-			char c2=getch();
+			char c2=_getch();
 			if(c2==UP){
 				if(fx==0)	fx=3;
 				else	fx--;
@@ -473,17 +537,19 @@ void Settings() throw() {
 		}
 	}
 }
-void About() throw() {
-	HideCursor();
+void about(){
+	hideCursor();
 	system("cls");
 	cout<<"贪吃蛇"<<VERSION<<" by 2345Explorer\n";
 	Sleep(100);
 	cout<<"更新时间:"<<TIME<<endl;
 	Sleep(100);
+	cout<<"点个Star⑧ QAQ\n仓库地址:https://gitee.com/Explorer2345/snake\n";
+	Sleep(100);
 	system("pause");
 }
-short StartMenu() throw() {		//初始菜单.
-	HideCursor();
+short startMenu(){		//初始菜单.
+	hideCursor();
 	int f=0;
 	bool flag=false;
 	int a[4][2]= {2,2,11,2,20,2,29,6};
@@ -494,17 +560,16 @@ short StartMenu() throw() {		//初始菜单.
 			cout<<" 开始     设置     关于     退出游戏  \n";
 		}
 		else	flag=false;
-		if(IsWin7())	Print_Fame(1,a[f][0],a[f][1]+1);
-		else	Print_Fame(1,a[f][0],a[f][1]);
+		printFrame(1,a[f][0],a[f][1]+1);
 		gotoXY(0,4);
 		cout<<"左、右方向键切换,回车选择\n";
-		char c1=getch();
+		char c1=_getch();
 		if(c1!=0&&c1!=224&&c1!=-32) {
 			if(c1==13) {		//回车.
 				if(f==1)
-					Settings();
+					settings();
 				else if(f==2)
-					About();
+					about();
 				else if(f==3)
 					exit(0);
 				else
@@ -514,7 +579,7 @@ short StartMenu() throw() {		//初始菜单.
 				continue;
 			}
 		} else {
-			char c2=getch();
+			char c2=_getch();
 			if(c2==LEFT) {
 				if(f==0)	f=3;
 				else	f--;
@@ -527,10 +592,10 @@ short StartMenu() throw() {		//初始菜单.
 			}
 		}
 	}
-	return _Start();
+	return startGameMenu();
 }
-bool EndGame(short x) throw() {		//游戏结束.
-	HideCursor();
+bool endGame(short x){		//游戏结束.
+	hideCursor();
 	gotoXY(0,HIGHT+1);
 	cout<<"游戏结束!\n";
 	system("pause");
@@ -539,10 +604,14 @@ bool EndGame(short x) throw() {		//游戏结束.
 	cout<<"分数:"<<SnakeLength+1<<endl;
 	cout<<"速度:"<<SPEED_STR[x]<<endl;
 	Sleep(1000);
+	if (TestSetting.sd) {
+		cout << "游戏玩完了 关机中...";
+		system("shutdown /s /t 10");
+	}
 	cout<<"Y:再来一次 N:结束\n";
 	char c=32;
 	while(c!='Y'&&c!='y'&&c!='N'&&c!='n'){
-		c=getch();
+		c=_getch();
 	}
 	return (c=='Y'||c=='y');
 }

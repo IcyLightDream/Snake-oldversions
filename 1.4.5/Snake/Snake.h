@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2021 2345Explorer
+   Copyright (c) 2022 2345Explorer
    Snake is licensed under Mulan PSL v2.
    You can use this software according to the terms and conditions of the Mulan PSL v2. 
    You may obtain a copy of Mulan PSL v2 at:
@@ -22,12 +22,7 @@ using namespace std;
 #define HIGHT 20
 #define WIDTH 50
 //蛇的最长长度.
-#define MaxSnakeTailLength 10000
-//速度.
-#define WALK 300
-#define GO 125
-#define RUN 50
-#define FAST 25
+const int maxSnakeTailLength=10000;
 
 char HeadC='#',TailC='*',FruitC='0';
 
@@ -37,7 +32,7 @@ void gotoXY(short x,short y) {
 	SetConsoleCursorPosition(hOut, pos);
 }
 
-void Print_Fame(int x,int y,int len){
+void printFrame(int x,int y,int len){
 	gotoXY(y-1,x);
 	for(int i=0;i<=len+1;i++)
 		cout<<"-";
@@ -50,29 +45,23 @@ void Print_Fame(int x,int y,int len){
 	cout<<"|";
 }
 
-void HideCursor() {
+void hideCursor() {
 	CONSOLE_CURSOR_INFO cursor_info = {1, 0};
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
 
-bool IsWin7(){	//判断是否是Windows7
-	typedef void(__stdcall*NTPROC)(DWORD*, DWORD*, DWORD*);
-    HINSTANCE hinst = LoadLibrary(TEXT("ntdll.dll"));//加载DLL
-    NTPROC GetNtVersionNumbers = (NTPROC)GetProcAddress(hinst, "RtlGetNtVersionNumbers");//获取函数地址
-    DWORD dwMajor, dwMinor, dwBuildNumber;
-    GetNtVersionNumbers(&dwMajor, &dwMinor, &dwBuildNumber);
-	return (dwMajor==6&&dwMinor==1);
-}
-
-struct pos {		//pos从0开始.
+struct Pos {		//pos从0开始.
 	short x,y;
 };
-struct DebugModeSettings{
+struct DebugModeSettingStruct{
 	bool HBT;	//蛇头撞蛇身是否算死亡.
-	int InitTailLength;	//初始蛇长.
+	long long InitTailLength;	//初始蛇长.
+};
+struct TestSettingStruct {
+	bool sd;	//游戏玩完后关机
 };
 
-const short SPEED_MS[5]={0,WALK,GO,RUN,FAST};		//速度对应的值  
+const short SPEED_MS[5]={0,300,125,50,25};		//速度对应的值  
 const string SPEED_STR[5]={"","散步","行走","奔跑","疯狂"};	//必须是两个字
 
-const string VERSION="1.4.1",TIME="2021.8.6";
+const string VERSION="1.4.5",TIME="2022.5.28";
